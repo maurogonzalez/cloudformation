@@ -1,0 +1,174 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: VPC with 2 public and 2 private subnets in different AZs
+Parameters:
+  EKSWorkerSG:
+    Type: String
+  EKSControlPlaneSG:
+    Type: String
+  PublicSubnet1Name:
+    Type: String
+  PrivateSubnet1Name:
+    Type: String
+  PublicSubnet2Name:
+    Type: String
+  PrivateSubnet2Name:
+    Type: String
+  Env:
+    Type: String
+  Region:
+    Type: String
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsHostnames: true
+      Tags:
+      - Key: Name
+        Value: !Sub "SpleenVPC-${Env}"
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Sub "SpleenGateway-${Env}"
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs
+          Ref: Region
+      Tags:
+        - Key: Name
+          Value: !Sub "Spleen Public Subnet 1-${Env}"
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: !Select 
+        - '0'
+        - !GetAZs
+          Ref: Region
+      Tags:
+        - Key: Name
+          Value: !Sub "Spleen Private Subnet 1-${Env}"
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select 
+        - '1'
+        - !GetAZs
+          Ref: Region
+      Tags:
+        - Key: Name
+          Value: !Sub "Spleen Public Subnet 1-${Env}"
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      CidrBlock: 10.0.3.0/24
+      AvailabilityZone: !Select 
+        - '1'
+        - !GetAZs
+          Ref: Region
+      Tags:
+        - Key: Name
+          Value: !Sub "Spleen Private Subnet 2-${Env}"
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "Spleen  Public Route Table-${Env}"
+  PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  PublicSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet1
+      RouteTableId: !Ref PublicRouteTable
+  PublicSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+  PrivateRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+      Tags:
+      - Key: Name
+        Value: !Sub "Spleen Private Route Table-${Env}"
+  PrivateSubnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet1
+      RouteTableId: !Ref PrivateRouteTable
+  PrivateSubnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PrivateSubnet2
+      RouteTableId: !Ref PrivateRouteTable
+  EKSWorkerSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "EKS Worker Nodes Security Group"
+      VpcId: !Ref VPC
+  EKSControlPlaneSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "EKS Control Plane Security Group"
+      VpcId: !Ref VPC
+Outputs:
+  VPC:
+    Description: VPC
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${AWS::StackName}-VPC"
+  PublicSubnet1:
+    Description: Public Subnet 1
+    Value: !Ref PublicSubnet1
+    Export:
+      Name: !Sub "${AWS::StackName}-${PublicSubnet1Name}"
+  PrivateSubnet1:
+    Description: Private Subnet 1
+    Value: !Ref PrivateSubnet1
+    Export:
+      Name: !Sub "${AWS::StackName}-${PrivateSubnet1Name}"
+  PublicSubnet2:
+    Description: Public Subnet 2
+    Value: !Ref PublicSubnet2
+    Export:
+      Name: !Sub "${AWS::StackName}-${PublicSubnet2Name}"
+  PrivateSubnet2:
+    Description: Private Subnet 2
+    Value: !Ref PrivateSubnet2
+    Export:
+      Name: !Sub "${AWS::StackName}-${PrivateSubnet2Name}"
+  EKSWorkerSecurityGroup:
+    Description: "EKS Worker Nodes Security Group"
+    Value: !Ref EKSWorkerSecurityGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-${EKSWorkerSG}"
+  EKSControlPlaneSecurityGroup:
+    Description: "EKS Control Plane Security Group"
+    Value: !Ref EKSControlPlaneSecurityGroup
+    Export:
+      Name: !Sub "${AWS::StackName}-${EKSControlPlaneSG}"

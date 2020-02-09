@@ -1,0 +1,6 @@
+---
+- name: Debug
+  debug:
+    msg: Running Roles Stack for Environment {{ env }}
+- name: Create IAM Roles
+  include: roles.yml

@@ -1,0 +1,11 @@
+---
+Parameters:
+  EbAppName:
+    Type: String
+Type: AWS::EKS::Cluster
+Properties: 
+  Name: String
+  ResourcesVpcConfig: 
+    ResourcesVpcConfig
+  RoleArn: String
+  Version: String
