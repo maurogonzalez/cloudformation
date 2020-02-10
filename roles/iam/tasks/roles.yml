@@ -8,3 +8,4 @@
     template: roles/iam/templates/roles.yml
     template_parameters:          
       EKSServiceRoleName: "{{ eks_service_role }}"
+      EKSWorkerNodeName: "{{ eks_worker_node_role }}"
