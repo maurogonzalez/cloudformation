@@ -7,4 +7,4 @@
     stack_name: "{{ roles_stack_name }}"
     template: roles/iam/templates/roles.yml
     template_parameters:          
-      EKSServiceRoleName: "{{ eks_service_role }}""
+      EKSServiceRoleName: "{{ eks_service_role }}"
