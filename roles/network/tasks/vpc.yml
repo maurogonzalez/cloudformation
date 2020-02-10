@@ -15,3 +15,4 @@
       PrivateSubnet2Name: "{{ private_subnet_2 }}"
       Env: "{{ env | title }}"
       Region: "{{ region }}"
+      EKSSubnetTag: "{{ eks_subnet_tag }}"

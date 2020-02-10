@@ -18,6 +18,8 @@ Parameters:
     Type: String
   Region:
     Type: String
+  EKSSubnetTag:
+    Type: String
 Resources:
   VPC:
     Type: AWS::EC2::VPC
@@ -62,6 +64,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub "Spleen Private Subnet 1-${Env}"
+        - Key: !Ref EKSSubnetTag
+          Value: shared
   PublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:
@@ -86,6 +90,8 @@ Resources:
       Tags:
         - Key: Name
           Value: !Sub "Spleen Private Subnet 2-${Env}"
+        - Key: !Ref EKSSubnetTag
+          Value: shared
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
