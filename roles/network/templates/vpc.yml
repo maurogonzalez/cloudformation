@@ -1,6 +1,6 @@
 ---
-AWSTemplateFormatVersion: 2010-09-09
-Description: VPC with 2 public and 2 private subnets in different AZs
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "VPC with 2 public and 2 private subnets in different AZs"
 Parameters:
   EKSWorkerSG:
     Type: String
@@ -44,7 +44,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.0.0/24
       AvailabilityZone: !Select 
-        - '0'
+        - "0"
         - !GetAZs
           Ref: Region
       Tags:
@@ -56,7 +56,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: !Select 
-        - '0'
+        - "0"
         - !GetAZs
           Ref: Region
       Tags:
@@ -68,7 +68,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.2.0/24
       AvailabilityZone: !Select 
-        - '1'
+        - "1"
         - !GetAZs
           Ref: Region
       Tags:
@@ -80,7 +80,7 @@ Resources:
       VpcId: !Ref VPC
       CidrBlock: 10.0.3.0/24
       AvailabilityZone: !Select 
-        - '1'
+        - "1"
         - !GetAZs
           Ref: Region
       Tags:
