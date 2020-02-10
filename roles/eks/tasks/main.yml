@@ -1,3 +1,6 @@
 ---
 - name: Create EKS Cluster
   include: cluster.yml
+
+- name: Create EKS Node Group
+  include: nodegroup.yml

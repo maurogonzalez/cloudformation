@@ -14,4 +14,8 @@ roles_stack_name: SpleenDemoRolesStack-{{ env | title }}
 k8s_version: "1.14"
 eks_cluster_name: SpleenDemoEKSCluster-{{ env | title }}
 eks_cluster_stack_name: SpleenDemoEKSClusterStack-{{ env | title }}
+eks_nodegroup_stack_name: SpleenDemoEKSNodeGroupStack-{{ env | title }}
 eks_service_role: EKSServiceRoleArn
+eks_worker_node_role: EKSWorkerNodeRoleArn
+eks_nodegroup_name: EKSNodeGroup-{{ env | title }}
+eks_subnet_tag: kubernetes.io/cluster/{{ eks_cluster_name }}
