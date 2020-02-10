@@ -47,16 +47,30 @@ $  ansible-playbook -vvv -i inventory/dev.yml -e "role=$ROLE profile=default" pl
 Manages an [EKS](https://aws.amazon.com/eks/) Cluster.
 
 Requires:
-- `iam` role
-- `network` role
+- `iam` role played
+- `network` role played
+
+Creates:
+- AWS::EKS::Cluster
+- AWS::EKS::NodeGroup
 
 ### IAM <a name="iam" />
 
 Manages [IAM](https://aws.amazon.com/iam/) resources.
 
+Creates roles for:
+- AWS::EKS::Cluster
+- AWS::EKS::NodeGroup
+
 ### Network <a name="network" />
 
 Manages [VPC](https://aws.amazon.com/ec2/) resources such.
+
+Creates:
+- AWS::EC2::VPC with 2 AZs.
+- 2 Public AWS::EC2::Subnet
+- 2 Private AWS::EC2::Subnet
+- 2 AWS::EC2::SecurityGroup
 
 ## Author <a name="author" />
 
