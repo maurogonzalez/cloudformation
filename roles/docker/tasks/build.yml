@@ -1,0 +1,11 @@
+---
+- name: Build Go App image
+  docker_image:
+    name: goapp:latest
+    build:
+      pull: yes
+      path: example
+      cache_from:
+        - alpine:3.11
+    source: build
+

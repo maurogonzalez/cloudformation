@@ -1,0 +1,14 @@
+---
+- name: Set task variable
+  set_fact:
+    home: "{{ lookup('env','HOME') }}"
+
+- name: Run container
+  docker_container:
+    name: goappcontainer
+    state: started
+    image: goapp
+    ports:
+    - "8081:8081"
+    volumes:
+        - "{{ home }}/.aws/credentials:/root/.aws/credentials"

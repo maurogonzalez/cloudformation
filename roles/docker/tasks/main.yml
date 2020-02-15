@@ -1,0 +1,10 @@
+---
+- name: Build Docker Image
+  include: build.yml
+  tags:
+  - build   
+
+- name: Build Docker Image
+  include: run.yml
+  tags:
+  - run
