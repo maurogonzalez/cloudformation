@@ -16,4 +16,4 @@
       NodeInstanceType: "{{ eks_nodegroup_instance_type }}"
       Subnet1: "{{ vpc_stack_name }}-{{ private_subnet_1 }}"
       Subnet2: "{{ vpc_stack_name }}-{{ private_subnet_2 }}"
-      NodeRoleArn: "{{ roles_stack_name }}-{{ eks_worker_node_role }}"
+      NodeRoleArn: "{{ iam_stack_name }}-{{ eks_worker_node_role }}"

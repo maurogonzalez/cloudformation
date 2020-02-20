@@ -1,6 +1,6 @@
 FROM alpine:3.11
 
-COPY s3example .
+COPY spleenexample .
 
 RUN apk add --purge libc6-compat && \
     rm -rf /tmp/* && \

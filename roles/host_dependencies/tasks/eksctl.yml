@@ -1,0 +1,14 @@
+---
+- name: Install eksctl
+  unarchive:
+    src: https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_Linux_amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+  become: yes
+
+- name: Test eksctl version
+  shell: eksctl version
+  register: eksctl_version
+
+- debug:
+    msg: eksctl version {{ eksctl_version.stdout_lines }}

@@ -8,11 +8,10 @@
     template: roles/eks/templates/eks-cluster.yml        
     template_parameters:
       ClusterName: "{{ eks_cluster_name }}"
-      RoleArn: "{{ roles_stack_name }}-{{ eks_service_role }}"
+      RoleArn: "{{ iam_stack_name }}-{{ eks_service_role }}"
       Version: "{{ k8s_version }}"
       PublicSubnet1: "{{ vpc_stack_name }}-{{ public_subnet_1 }}"
       PrivateSubnet1: "{{ vpc_stack_name }}-{{ private_subnet_1 }}"
       PublicSubnet2: "{{ vpc_stack_name }}-{{ public_subnet_2 }}"
       PrivateSubnet2: "{{ vpc_stack_name }}-{{ private_subnet_2 }}"
-      EKSWorkerSG: "{{ vpc_stack_name }}-{{ eks_worker_sg }}"
       EKSControlPlaneSG: "{{ vpc_stack_name }}-{{ eks_control_plane_sg }}"

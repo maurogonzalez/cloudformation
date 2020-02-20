@@ -1,0 +1,10 @@
+---
+- name: S3 Cloudformation Stack
+  cloudformation:
+    profile: "{{ profile }}"
+    region: "{{ region }}"
+    state: "{{ state }}"
+    stack_name: "{{ iam_stack_name }}"
+    template: roles/s3/templates/s3_cf.yml
+    template_parameters:
+      S3Bucket: "{{ spleen_bucket }}"

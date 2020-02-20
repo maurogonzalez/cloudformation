@@ -2,7 +2,8 @@ all:
   vars:
     env: dev
     eks_nodegroup_instance_type: t3.micro
-    eks_nodegroup_min_size: 1
-    eks_nodegroup_max_size: 1
-    eks_nodegroup_desired_size: 1
+    eks_nodegroup_min_size: 2
+    eks_nodegroup_max_size: 5
+    eks_nodegroup_desired_size: 2
     eks_nodegroup_volumme_size: 10
+    aws_user: gumpdev

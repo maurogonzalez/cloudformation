@@ -1,0 +1,25 @@
+---
+- name: VPC Cloudformation Stack
+  cloudformation:
+    profile: "{{ profile }}"
+    region: "{{ region }}"
+    state: "{{ state }}"
+    stack_name: "{{ vpc_stack_name }}"
+    template: roles/vpc/templates/vpc_cf.yml
+    template_parameters:
+      Env: "{{ env | title }}"
+      Region: "{{ region }}"
+      EKSControlPlaneSG: "{{ eks_control_plane_sg }}"
+      PublicSubnet1Name: "{{ public_subnet_1 }}"
+      PublicSubnet2Name: "{{ public_subnet_2 }}"
+      PrivateSubnet1Name: "{{ private_subnet_1 }}"
+      PrivateSubnet2Name: "{{ private_subnet_2 }}"
+      EKSSubnetTag: "{{ eks_subnet_tag }}"
+      VpcBlock: 10.0.0.0/16
+      PublicSubnet1Block: 10.0.0.0/24
+      PublicSubnet2Block: 10.0.2.0/24
+      PrivateSubnet1Block: 10.0.1.0/24
+      PrivateSubnet2Block: 10.0.3.0/24
+
+
+

@@ -1,0 +1,26 @@
+---
+ - name: Download Go Lang
+   unarchive:
+     src: https://dl.google.com/go/go1.13.8.linux-amd64.tar.gz
+     dest: /usr/local/
+     remote_src: yes
+   become: yes
+
+- name: Add Go to PATH
+  lineinfile:
+    dest: "{{ ansible_env.HOME }}/.profile"
+    state: present
+    line: "export PATH=$PATH:/usr/local/go/bin"
+    insertafter: EOF
+
+- name: Source profile
+  shell: source {{ ansible_env.HOME }}/.profile
+  args:
+    executable: /bin/bash
+
+- name: Test go version
+  shell: go version
+  register: go_version
+
+- debug:
+    msg: go version {{ go_version.stdout_lines }}

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spleen
+  labels:
+    app: spleen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spleen
+  template:
+    metadata:
+      labels:
+        app: spleen
+    spec:
+      containers:
+      - name: spleen-app
+        image: 409153575197.dkr.ecr.us-east-1.amazonaws.com/spleenexampleapp:1
+        env:
+        - name: APP_PORT
+          value: 8082
+        - name: APP_BUCKET
+          value: spleenbucketdev
+        - name: APP_KEY
+          value: test.json
+        ports:
+        - containerPort: 8082

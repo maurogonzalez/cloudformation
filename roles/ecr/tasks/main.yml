@@ -1,0 +1,11 @@
+---
+- name: AWS ECR Cluster
+  cloudformation:   
+    profile: "{{ profile }}"
+    region: "{{ region }}"
+    state: present
+    stack_name: "{{ ecr_stack_name }}"
+    template: roles/eks/templates/ecr.yml        
+    template_parameters:
+      ECRName: "{{ ecr_name }}"
+      AWSUSer: "{{ aws_user }}"

@@ -1,11 +1,30 @@
 ---
-- name: Build Go App image
-  docker_image:
-    name: goapp:latest
-    build:
-      pull: yes
-      path: example
-      cache_from:
-        - alpine:3.11
-    source: build
+- name: Build Spleen App
+  block:
+  - name: Compile app
+    shell: go build spleenexample.go
+    args:
+      chdir: example
+
+  - name: ECR login
+    shell: $(aws ecr get-login --no-include-email --region us-east-1)
+
+  - name: Build Go App image
+    docker_image:
+      name: "{{ app_image }}"
+      push: yes
+      tag: 1
+      build:
+        pull: yes
+        path: example
+        cache_from:
+          - alpine:3.11
+      source: build
+
+  always:
+  - name: Remove file (delete file)
+    file:
+      path: example/spleenexample
+      state: absent
+  
 
