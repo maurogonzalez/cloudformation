@@ -10,13 +10,11 @@ Parameters:
     Type: String
   PublicSubnet1:
     Type: String
-  PrivateSubnet1:
-    Type: String
   PublicSubnet2:
     Type: String
-  PrivateSubnet2:
+  PrivateSubnet1:
     Type: String
-  EKSWorkerSG:
+  PrivateSubnet2:
     Type: String
   EKSControlPlaneSG:
     Type: String
@@ -27,7 +25,6 @@ Resources:
       Name: !Ref ClusterName
       ResourcesVpcConfig:
         SecurityGroupIds:
-          - Fn::ImportValue: !Ref EKSWorkerSG
           - Fn::ImportValue: !Ref EKSControlPlaneSG
         SubnetIds:
           - Fn::ImportValue: !Ref PublicSubnet1

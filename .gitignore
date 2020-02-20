@@ -1,0 +1,5 @@
+.ansible
+.cache
+*.sum
+*.retry
+*.vscode

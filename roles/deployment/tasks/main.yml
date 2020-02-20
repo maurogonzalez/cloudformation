@@ -1,0 +1,27 @@
+---
+- name: k8s Apply
+  block:
+  - name: Template files
+    template:
+      src: "{{ item }}.j2"
+      dest: "{{ item }}"
+    loop: "{{ files }}"
+
+  - name: Register EKS
+    shell: aws eks update-kubeconfig --name {{ eks_cluster_name }}
+
+  - name: Apply configmap
+    shell: kubectl apply -f configmap.yml
+
+  - name: Apply deployment
+    shell: kubectl apply -f deployment.yml
+
+  - name: Apply service
+    shell: kubectl apply -f service.yml
+
+  always:
+  - name: Delete files
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop: "{{ files }}"

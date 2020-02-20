@@ -12,7 +12,6 @@ Parameters:
     Type: Number
   NodeGroupName:
     Type: String
-    Description: Unique identifier for the Node Group.
   NodeInstanceType:
     Type: String
   NodeVolumeSize:

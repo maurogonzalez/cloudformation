@@ -1,21 +1,30 @@
 # AWS
 region: us-east-1
+profile: default
+# Clouformation
+state: present
+# S3
+s3_stack_name: SpleenS3Stack-{{ env | title }}
+spleen_bucket: spleenbucket{{ env }}
+spleen_key: config.json
 # Network
-vpc_stack_name: SpleenDemoVPCStack-{{ env | title }}
-eks_worker_sg: EKSWorkerSG
-eks_control_plane_sg: SpleenControlPlaneSG
-public_subnet_1: PublicSubnet1
-private_subnet_1: PrivateSubnet1
-public_subnet_2: PublicSubnet2
-private_subnet_2: PrivateSubnet2
+vpc_stack_name: SpleenVPCStack-{{ env | title }}
+eks_control_plane_sg: SpleenEKSControlPlaneSG-{{ env | title }}
+public_subnet_1: SpleenPublicSubnet1-{{ env | title }}
+public_subnet_2: SpleenPublicSubnet2-{{ env | title }}
+private_subnet_1: SpleenPrivateSubnet1-{{ env | title }}
+private_subnet_2: SpleenPrivateSubnet2-{{ env | title }}
 # IAM
-roles_stack_name: SpleenDemoRolesStack-{{ env | title }}
+iam_stack_name: SpleenIAMStack-{{ env | title }}
 # EKS
 k8s_version: "1.14"
-eks_cluster_name: SpleenDemoEKSCluster-{{ env | title }}
-eks_cluster_stack_name: SpleenDemoEKSClusterStack-{{ env | title }}
-eks_nodegroup_stack_name: SpleenDemoEKSNodeGroupStack-{{ env | title }}
-eks_service_role: EKSServiceRoleArn
-eks_worker_node_role: EKSWorkerNodeRoleArn
-eks_nodegroup_name: EKSNodeGroup-{{ env | title }}
+eks_cluster_name: SpleenEKSCluster-{{ env | title }}
+eks_cluster_stack_name: SpleenEKSClusterStack-{{ env | title }}
+eks_nodegroup_stack_name: SpleenEKSNodeGroupStack-{{ env | title }}
+eks_service_role: SpleenEKSServiceRoleArn-{{ env | title }}
+eks_worker_node_role: SpleenEKSWorkerNodeRoleArn-{{ env | title }}
+eks_nodegroup_name: SpleenEKSNodeGroup-{{ env | title }}
 eks_subnet_tag: kubernetes.io/cluster/{{ eks_cluster_name }}
+# ECR
+ecr_name: spleenexampleapp
+ecr_stack_name: SpleenECRStack

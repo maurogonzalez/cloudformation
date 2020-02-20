@@ -1,6 +1,13 @@
 ---
-- name: Debug
-  debug:
-    msg: Running Roles Stack for Environment {{ env }}
-- name: Create IAM Roles
-  include: roles.yml
+- name: IAM Roles Cloudformation Stack
+  cloudformation:
+    profile: "{{ profile }}"
+    region: "{{ region }}"
+    state: "{{ state }}"
+    stack_name: "{{ iam_stack_name }}"
+    template: roles/iam/templates/roles_cf.yml
+    template_parameters:          
+      EKSServiceRoleName: "{{ eks_service_role }}"
+      EKSWorkerNodeName: "{{ eks_worker_node_role }}"
+      S3BucketArn: "{{ s3_stack_name }}-{{ spleen_bucket }}"
+      S3Object: "{{ spleen_key }}"

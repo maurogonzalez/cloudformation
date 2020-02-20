@@ -1,13 +1,17 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Amazon EKS Service Role"
+Description: "Amazon IAM Role"
 Parameters:
   EKSServiceRoleName:
     Type: String
   EKSWorkerNodeName:
     Type: String
+  S3BucketArn:
+    Type: String
+  S3Object:
+      Type: String
 Resources:
-  eksServiceRole:
+  EKSServiceRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -20,9 +24,9 @@ Resources:
           Action:
           - sts:AssumeRole
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
-        - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
-  eksWorkerNodeRole:
+      - arn:aws:iam::aws:policy/AmazonEKSServicePolicy
+      - arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+  EKSWorkerNodeRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -38,14 +42,26 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
         - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+      Policies:
+      - PolicyName: S3SpleenPullpolicy
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Effect: Allow
+            Action: "s3:GetObject"
+            Resource: !Join
+              - ''
+              - - Fn::ImportValue: !Ref S3BucketArn
+                - /
+                - !Ref S3Object
 Outputs:
   RoleArn:
     Description: The role that Amazon EKS will use to create AWS resources for Kubernetes clusters
-    Value: !GetAtt eksServiceRole.Arn
+    Value: !GetAtt EKSServiceRole.Arn
     Export:
       Name: !Sub "${AWS::StackName}-${EKSServiceRoleName}"
   EKSWorkerNodeARN:
-    Description: The role that Amazon EKS will use to create AWS resources for Kubernetes clusters
-    Value: !GetAtt eksWorkerNodeRole.Arn
+    Description: The role that Amazon EKS Workers will use to access AWS resources
+    Value: !GetAtt EKSWorkerNodeRole.Arn
     Export:
       Name: !Sub "${AWS::StackName}-${EKSWorkerNodeName}"
