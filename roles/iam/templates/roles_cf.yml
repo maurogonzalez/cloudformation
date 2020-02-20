@@ -8,6 +8,8 @@ Parameters:
     Type: String
   S3BucketArn:
     Type: String
+  S3Object:
+      Type: String
 Resources:
   EKSServiceRole:
     Type: AWS::IAM::Role
@@ -41,14 +43,17 @@ Resources:
         - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
         - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
       Policies:
-      - PolicyName: S3 Pull policy
+      - PolicyName: S3SpleenPullpolicy
         PolicyDocument:
           Version: "2012-10-17"
           Statement:
           - Effect: Allow
             Action: "s3:GetObject"
-            Resource:
-              Fn::ImportValue: !Ref S3BucketArn
+            Resource: !Join
+              - ''
+              - - Fn::ImportValue: !Ref S3BucketArn
+                - /
+                - !Ref S3Object
 Outputs:
   RoleArn:
     Description: The role that Amazon EKS will use to create AWS resources for Kubernetes clusters

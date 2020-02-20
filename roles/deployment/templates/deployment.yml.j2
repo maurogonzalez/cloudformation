@@ -17,12 +17,8 @@ spec:
       containers:
       - name: spleen-app
         image: {{ app_image }}
-        env:
-        - name: APP_PORT
-          value: {{ spleen_app_port }}
-        - name: APP_BUCKET
-          value: {{ spleen_app_bucket }}
-        - name: APP_KEY
-          value: {{ spleen_app_key }}
         ports:
         - containerPort: {{ spleen_app_port }}
+        envFrom:
+        - configMapRef:
+            name: spleen-env

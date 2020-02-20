@@ -9,4 +9,5 @@
     template_parameters:          
       EKSServiceRoleName: "{{ eks_service_role }}"
       EKSWorkerNodeName: "{{ eks_worker_node_role }}"
-      S3BucketRef: "{{ s3_stack_name }}-{{ spleen_bucket }}"
+      S3BucketArn: "{{ s3_stack_name }}-{{ spleen_bucket }}"
+      S3Object: "{{ spleen_key }}"

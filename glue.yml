@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  roles:
+  - role: host_dependencies
+  - role: ecr
+  - role: s3
+  - role: iam
+  - role: vpc
+  - role: eks
+  - role: app
+  - role: deployment

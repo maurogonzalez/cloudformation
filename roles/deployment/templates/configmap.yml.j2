@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spleen-env
+data:
+  APP_PORT: "{{ spleen_app_port }}"
+  APP_BUCKET: "{{ spleen_bucket }}"
+  APP_KEY: "{{ spleen_key }}"

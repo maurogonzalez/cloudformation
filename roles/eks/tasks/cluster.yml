@@ -3,9 +3,9 @@
   cloudformation:   
     profile: "{{ profile }}"
     region: "{{ region }}"
-    state: present
+    state: "{{ state }}"
     stack_name: "{{ eks_cluster_stack_name }}"
-    template: roles/eks/templates/eks-cluster.yml        
+    template: roles/eks/templates/eks_cluster_cf.yml        
     template_parameters:
       ClusterName: "{{ eks_cluster_name }}"
       RoleArn: "{{ iam_stack_name }}-{{ eks_service_role }}"

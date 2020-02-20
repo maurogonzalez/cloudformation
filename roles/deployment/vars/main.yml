@@ -4,3 +4,7 @@ app_image: 409153575197.dkr.ecr.us-east-1.amazonaws.com/{{ ecr_name }}:{{ app_ta
 spleen_app_port: 8082
 spleen_app_bucket: "{{ spleen_bucket }}"
 spleen_app_key: "{{ spleen_key }}"
+files:
+- configmap.yml
+- deployment.yml
+- service.yml

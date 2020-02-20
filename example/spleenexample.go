@@ -28,6 +28,9 @@ func getobject() string {
 	bucket := getenv("APP_BUCKET", "TestBucket")
 	key := getenv("APP_KEY", "test.json")
 
+	log.Print(fmt.Sprintf("Bucket: %s", bucket))
+	log.Print(fmt.Sprintf("Object: %s", key))
+
 	sess, _ := session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1")},
 	)

@@ -6,7 +6,7 @@ state: present
 # S3
 s3_stack_name: SpleenS3Stack-{{ env | title }}
 spleen_bucket: spleenbucket{{ env }}
-spleen_key: test.json
+spleen_key: config.json
 # Network
 vpc_stack_name: SpleenVPCStack-{{ env | title }}
 eks_control_plane_sg: SpleenEKSControlPlaneSG-{{ env | title }}
