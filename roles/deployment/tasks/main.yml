@@ -1,27 +1,28 @@
 ---
-- name: Template files
-  template:
-    src: "{{ item }}.j2"
-    dest: "{{ item }}"
-  loop:
-  - deployment.yml
-  - service.yml
+- name: k8s Apply
+  block:
+  - name: Template files
+    template:
+      src: "{{ item }}.j2"
+      dest: "{{ item }}"
+    loop:
+    - deployment.yml
+    - service.yml
 
-- shell: cat service.yml
+  - name: Register EKS
+    shell: aws eks update-kubeconfig --name {{ eks_cluster_name }}
 
-- name: Register EKS
-  shell: aws eks update-kubeconfig --name {{ eks_cluster_name }}
+  - name: Apply deployment
+    shell: kubectl apply -f deployment.yml
 
-- name: Apply deployment
-  shell: kubectl apply -f deployment.yml
+  - name: Apply service
+    shell: kubectl apply -f service.yml
 
-- name: Apply service
-  shell: kubectl apply -f service.yml
-
-- name: Delete files
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-  - deployment.yml
-  - service.yml
+  always:
+  - name: Delete files
+    file:
+      path: "{{ item }}"
+      state: absent
+    loop:
+    - deployment.yml
+    - service.yml
