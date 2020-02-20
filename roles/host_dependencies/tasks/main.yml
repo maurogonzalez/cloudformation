@@ -1,4 +1,6 @@
 ---
+- include: kubectl.yml
+
 - include: golang.yml
   
 - include: eksctl.yml

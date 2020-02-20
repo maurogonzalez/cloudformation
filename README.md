@@ -7,9 +7,14 @@ This project tries to cover some AWS management through
 1. [Requirements](#requirements)
 1. [Getting ready](#getting-ready)
 1. [Roles](#roles)
+    1. [deployment](#deployment)
+    1. [docker](#docker)
+    1. [ecr](#ecr)
     1. [eks](#eks)
+    1. [host_dependencies](#host_dependencies)
     1. [iam](#iam)
-    1. [network](#iam)
+    1. [s3](#s3)
+    1. [vpc](#vpc)
 1. [Author](#author)
 
 ## Requirements <a name="requirements" />
@@ -38,7 +43,12 @@ set variables/values corresponding to a given scope).
 
 The command to run each implemented role is as follows:
 ```
-$  ansible-playbook -vvv -i inventory/dev.yml -e "role=$ROLE profile=default" playbook.yml
+$  ansible-playbook -i dev.yml -e "role=$ROLE" playbook.yml
+```
+
+For become root access use `ask-become-pass` like:
+```
+$  ansible-playbook --ask-become-pass -i dev.yml -e "role=host_dependencies" playbook.yml
 ```
 
 
@@ -62,7 +72,7 @@ Creates roles for:
 - AWS::EKS::Cluster
 - AWS::EKS::NodeGroup
 
-### Network <a name="network" />
+### VPC <a name="vpc" />
 
 Manages [VPC](https://aws.amazon.com/ec2/) resources such.
 
