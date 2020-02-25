@@ -1,4 +1,4 @@
-module gump.com/user/s3example
+module gump.com/user/spleenexample
 
 go 1.13
 
