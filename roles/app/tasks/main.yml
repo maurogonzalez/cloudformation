@@ -2,9 +2,3 @@
 - include: upload_conf.yml
 
 - include: build.yml
-  tags:
-  - build   
-
-- include: run.yml
-  tags:
-  - run

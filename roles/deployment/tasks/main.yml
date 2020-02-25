@@ -8,7 +8,7 @@
     loop: "{{ files }}"
 
   - name: Register EKS
-    shell: aws eks update-kubeconfig --name {{ eks_cluster_name }}
+    shell: aws eks update-kubeconfig --profile {{ profile }} --name {{ eks_cluster_name }} --region {{ region }}
 
   - name: Apply configmap
     shell: kubectl apply -f configmap.yml

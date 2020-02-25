@@ -1,6 +1,6 @@
 # AWS
 region: us-east-1
-profile: default
+profile: gumpdev
 # Clouformation
 state: present
 # S3

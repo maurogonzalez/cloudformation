@@ -36,7 +36,7 @@ Resources:
       NodegroupName: !Ref NodeGroupName
       NodeRole:
         Fn::ImportValue: !Ref NodeRoleArn
-      ReleaseVersion: 1.14.7-20190927
+      ReleaseVersion: 1.14.8-20191213
       ScalingConfig: 
         MinSize: !Ref NodeAutoScalingGroupMinSize
         DesiredSize: !Ref NodeAutoScalingGroupDesiredCapacity

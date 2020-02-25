@@ -8,4 +8,4 @@
     template: roles/ecr/templates/ecr_cf.yml        
     template_parameters:
       ECRName: "{{ ecr_name }}"
-      AWSUSer: "{{ aws_user }}"
+      AWSAccount: "{{ aws_account }}"

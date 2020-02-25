@@ -7,7 +7,7 @@
       chdir: example
 
   - name: ECR login
-    shell: $(aws ecr get-login --no-include-email --region us-east-1)
+    shell: $(aws ecr get-login --no-include-email --profile {{ profile }} --region us-east-1)
 
   - name: Build Go App image
     docker_image:

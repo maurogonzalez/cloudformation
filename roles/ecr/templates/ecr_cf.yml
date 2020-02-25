@@ -4,7 +4,7 @@ Description: "Amazon ECR"
 Parameters:
   ECRName:
     Type: String
-  AWSUSer:
+  AWSAccount:
     Type: String
 Resources:
   SpleenAppECR:
@@ -19,7 +19,7 @@ Resources:
             Effect: Allow
             Principal: 
               AWS: 
-                - "arn:aws:iam::409153575197:user/gumpdev"
+                - !Sub "arn:aws:iam::${AWSAccount}:user/gumpdev"
             Action: 
               - "ecr:GetDownloadUrlForLayer"
               - "ecr:BatchGetImage"

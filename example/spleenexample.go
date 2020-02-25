@@ -17,7 +17,7 @@ func main() {
 	port := getenv("APP_PORT", "8081")
 	listen := fmt.Sprintf("0.0.0.0:%s", port)
 
-	http.HandleFunc("/", helloWorldHandler)
+	http.HandleFunc("/", spleenHandler)
 
 	log.Print(fmt.Sprintf("Listening on %s", listen))
 	log.Fatal(http.ListenAndServe(listen, nil))
@@ -53,7 +53,7 @@ func getobject() string {
 	return string(body)
 }
 
-func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
+func spleenHandler(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, getobject())
 }
 
